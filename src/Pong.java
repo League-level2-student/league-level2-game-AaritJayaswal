@@ -11,7 +11,7 @@ public class Pong {
 		GameFrame frame = new GameFrame();
 		
 		
-	}
+	} 
 	
 	
 }
