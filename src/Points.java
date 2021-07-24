@@ -10,7 +10,7 @@ public class Points extends Rectangle{
 	int player1;
 	int player2;
 	
-	Points(){
+	Points(int gameWidth, int gameHeight){
 		
 	}
 	

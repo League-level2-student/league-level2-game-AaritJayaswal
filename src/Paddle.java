@@ -1,41 +1,29 @@
 import java.awt.*;
 import java.awt.Event;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.util.*;
 import javax.swing.*;
 
-public class Paddle extends Rectangle{
+public class Paddle extends Rectangle {
 
-	int id;
-	int yVelocity;
-	
-	Paddle(){
+	public int speed = 10;
+	public boolean isActive = true;
+
+	public static BufferedImage image;
+	public static boolean needImage = true;
+	public static boolean gotImage = false;
+
+	public Paddle(int x1, int y1, int width1, int height1) {
+
+		super(x1, y1, width1, height1);
+
+	}
+
+	public void draw(Graphics g) {
+		g.setColor(Color.WHITE);
 		
 		
 	}
-	public void keyPressed(KeyEvent e) {
-		
-		
-	}
-	
-	public void keyReleased(KeyEvent e) {
-		
-		
-	}
-	
-	public void setYDirection(int yDirection) {
-		
-		
-	}
-	
-	public void move() {
-		
-		
-	}
-	
-	public void draw() {
-		
-		
-	}
-	
+
 }

@@ -1,35 +1,44 @@
 import java.awt.*;
 import java.awt.Event;
+import java.awt.image.BufferedImage;
 import java.util.*;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class Ball extends Rectangle{
+public class Ball extends GameObject{
 
-	Random random;
-	int yVelocity;
-	int xVelocity;
+	public static BufferedImage image;
+	public static boolean needImage = true;
+	public static boolean gotImage = false;
 	
+
+	void loadImage(String imageFile) {
+	    if (needImage) {
+	        try {
+	            image = ImageIO.read(this.getClass().getResourceAsStream(imageFile));
+		    gotImage = true;
+	        } 
+	        catch (Exception e) {
+	            
+	        }
+	        needImage = false;
+	    }
 	
-	Ball(){
+	}
+
+	public Ball(int x1, int y1, int width1, int height1) {
+		
+		super(x1,y1,width1,height1);
 		
 		
 	}
 	
-	public void setXDirection(int randomXDirection) {
-		
-		
-	}
+	public int speed = 1;
+	public boolean isActive = true;
 	
-	public void setYDirection(int randomYDirection) {
-		
-		
-	}
 	
-	public void move() {
-		
-	}
 	
-	public void draw(Graphics g) {
-		
-	}
+	
 }
+
