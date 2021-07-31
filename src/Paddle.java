@@ -25,5 +25,15 @@ public class Paddle extends Rectangle {
 		
 		
 	}
+	
+	public void up() {
+		
+		y -= speed;
+	}
+	
+	public void down() {
+		
+		y += speed;
+	}
 
 }
