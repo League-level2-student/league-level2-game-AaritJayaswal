@@ -1,21 +1,77 @@
+
 import java.awt.Canvas;
+import java.awt.Dimension;
+import java.util.Timer;
 
 public class Game extends Canvas implements Runnable {
 
+	
+	/**
+	 * 
+	 */
+
+	private static final long serialVersionUID = -4647718764425224474L;
+
+	public static final int WIDTH = 1000;
+	public static final int HEIGHT = WIDTH*9/16;
+	
+	public boolean running = false;
+	private Thread gameThread;
+	
+	private Ball ball;
+	private Paddle paddle;
+	private Paddle paddle2;
+	public Timer frameDraw;
+	
 	public Game()  {
 		
+		canvasSetup();
+		initialize();
+		new Pong("Pong", this);
 		
+	}
+
+	private void initialize() {
+		//ball
+		
+		//paddles
+	}
+
+	private void canvasSetup() {
+		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+		this.setMaximumSize(new Dimension(WIDTH, HEIGHT));
+		this.setMinimumSize(new Dimension(WIDTH, HEIGHT));
 	}
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+		
+	
+		
 		
 	}
 
 	public void start() {
-		// TODO Auto-generated method stub
+	gameThread = new Thread(this);
+	gameThread.start();
+	running = true;
 		
+	}
+	
+	public void stop() {
+		try {
+			gameThread.join();
+			running = false;
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public static void main(String[] args) {
+		
+		new Game();
 	}
 	
 }
