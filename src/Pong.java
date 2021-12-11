@@ -13,6 +13,7 @@ public class Pong {
 	frame.setLocationRelativeTo(null);
 	frame.setVisible(true);
 	
+	
 	game.start();
 	
 	

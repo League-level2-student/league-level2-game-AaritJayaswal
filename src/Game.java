@@ -1,5 +1,6 @@
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Timer;
 
@@ -34,6 +35,7 @@ public class Game extends Canvas implements Runnable {
 	private void initialize() {
 		//ball
 		
+		
 		//paddles
 	}
 
@@ -41,6 +43,7 @@ public class Game extends Canvas implements Runnable {
 		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		this.setMaximumSize(new Dimension(WIDTH, HEIGHT));
 		this.setMinimumSize(new Dimension(WIDTH, HEIGHT));
+		this.setBackground(Color.black);
 	}
 
 	@Override
