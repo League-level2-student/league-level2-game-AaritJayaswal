@@ -8,14 +8,19 @@ public class Pong extends Applet implements Runnable, KeyListener {
 	final int WIDTH = 700;
 	final int HEIGHT = 500;
 	Thread thread;
-	
+	PlayerPaddle p1;
+	Ball b1;
+
 	public void init() {
 
 		this.resize(WIDTH, HEIGHT);
+
 		this.addKeyListener(this);
+		p1 = new PlayerPaddle(1);
+		b1 = new Ball();
 		thread = new Thread(this);
 		thread.start();
-		
+
 	}
 
 	public void paint(Graphics g) {
@@ -26,6 +31,8 @@ public class Pong extends Applet implements Runnable, KeyListener {
 
 	public void update(Graphics g) {
 		paint(g);
+		p1.draw(g);
+		b1.draw(g);
 	}
 
 	@Override
@@ -33,8 +40,10 @@ public class Pong extends Applet implements Runnable, KeyListener {
 		// TODO Auto-generated method stub
 		for (;;) {
 
+			p1.move();
+			b1.move();
 			repaint();
-			
+
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
@@ -51,7 +60,11 @@ public class Pong extends Applet implements Runnable, KeyListener {
 
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
 
+			p1.setUpAccelerate(true);
+
 		} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+
+			p1.setDownAccelerate(true);
 
 		}
 
@@ -63,7 +76,11 @@ public class Pong extends Applet implements Runnable, KeyListener {
 
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
 
+			p1.setUpAccelerate(false);
+
 		} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+
+			p1.setDownAccelerate(false);
 
 		}
 
