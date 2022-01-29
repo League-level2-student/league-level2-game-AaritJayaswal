@@ -10,6 +10,7 @@ public class Pong extends Applet implements Runnable, KeyListener {
 	Thread thread;
 	PlayerPaddle p1;
 	Ball b1;
+	ComputerPaddle p2;
 
 	public void init() {
 
@@ -18,6 +19,8 @@ public class Pong extends Applet implements Runnable, KeyListener {
 		this.addKeyListener(this);
 		p1 = new PlayerPaddle(1);
 		b1 = new Ball();
+		p2 = new ComputerPaddle(2, b1);
+
 		thread = new Thread(this);
 		thread.start();
 
@@ -26,13 +29,20 @@ public class Pong extends Applet implements Runnable, KeyListener {
 	public void paint(Graphics g) {
 		g.setColor(Color.black);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
-
+		if (b1.getX() < -10 || b1.getX() > 710) {
+			g.setColor(Color.RED);
+			g.drawString("You lose", 350, 250);
+		} else {
+			p1.draw(g);
+			p2.draw(g);
+			b1.draw(g);
+			b1.checkPaddleCollision(p1, p2);
+		}
 	}
 
 	public void update(Graphics g) {
 		paint(g);
-		p1.draw(g);
-		b1.draw(g);
+
 	}
 
 	@Override
@@ -41,11 +51,12 @@ public class Pong extends Applet implements Runnable, KeyListener {
 		for (;;) {
 
 			p1.move();
+			p2.move();
 			b1.move();
 			repaint();
 
 			try {
-				Thread.sleep(10);
+				Thread.sleep(5);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

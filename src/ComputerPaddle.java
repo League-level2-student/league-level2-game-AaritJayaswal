@@ -1,7 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class PlayerPaddle implements Paddle {
+public class ComputerPaddle implements Paddle {
 
 	double y;
 	double yVelocity;
@@ -10,11 +10,12 @@ public class PlayerPaddle implements Paddle {
 	boolean downAccelerate;
 	int player;
 	int x;
+	Ball b1;
 
-	public PlayerPaddle(int player) {
+	public ComputerPaddle(int player, Ball b) {
 		upAccelerate = false;
 		downAccelerate = false;
-
+		b1 = b;
 		yVelocity = 0;
 
 		y = 210;
@@ -34,40 +35,13 @@ public class PlayerPaddle implements Paddle {
 	}
 
 	public void move() {
-
-		if (upAccelerate == true) {
-
-			yVelocity -= 0.6;
-		} else if (downAccelerate)
-
-			yVelocity += 0.6;
-
-		else if (!upAccelerate && !downAccelerate) {
-
-			yVelocity *= GRAVITY;
-
-		}
-
-		if (yVelocity >= 1) {
-
-			yVelocity = 1;
-		} else if (yVelocity <= -1) {
-
-			yVelocity = -1;
-		}
-
-		y += yVelocity;
+		y = b1.getY() - 40;
 
 		if (y < 0) {
-
 			y = 0;
-
 		}
-
 		if (y > 420) {
-
 			y = 420;
-
 		}
 
 	}
