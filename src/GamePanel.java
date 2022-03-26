@@ -18,7 +18,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font subtitleFont;
 	public Timer frameDraw;
 	public Paddle paddle = new Paddle(20, 220, 20, 80);
-	Ball ball = new Ball();
+	public static Ball ball = new Ball();
+	public OpponentPaddle op = new OpponentPaddle();
 	
 
 	public GamePanel() {
@@ -33,7 +34,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			drawMenuState(g);
 		} else if (currentState == GAME) {
 			drawGameState(g);
-			ball.move();
+			ball.update();
+			op.update();
 		} else if (currentState == END) {
 			drawEndState(g);
 
@@ -60,6 +62,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(Color.WHITE);
 		g.drawString("PONG", 320, 200);
 		g.drawString("Press ENTER to start", 155, 250);
+		
 	}
 
 	void drawGameState(Graphics g) {
@@ -68,7 +71,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	
 		paddle.draw(g);
 		ball.draw(g);
-		
+		op.draw(g);
+		if(paddle.collisionBox.intersects(ball.collisionBox)) {
+			ball.xVel = -ball.xVel;
+		}
 	}
 
 	void drawEndState(Graphics g) {
