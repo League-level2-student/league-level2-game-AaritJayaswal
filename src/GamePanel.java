@@ -19,7 +19,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public Timer frameDraw;
 	public Paddle paddle = new Paddle(20, 220, 20, 80);
 	Ball ball = new Ball();
-	OpponentPaddle op = new OpponentPaddle(ball);
+	
+
 	public GamePanel() {
 		frameDraw = new Timer(1000 / 60, this);
 		frameDraw.start();
@@ -33,7 +34,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		} else if (currentState == GAME) {
 			drawGameState(g);
 			ball.move();
-			op.move();
 		} else if (currentState == END) {
 			drawEndState(g);
 
@@ -65,10 +65,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	void drawGameState(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, Pong.WIDTH, Pong.HEIGHT);
-
+	
 		paddle.draw(g);
 		ball.draw(g);
-		op.draw(g);
+		
 	}
 
 	void drawEndState(Graphics g) {
@@ -114,7 +114,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			paddle.down();
 
 		}
-		
 
 	}
 
@@ -122,8 +121,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 
-	
-		
 	}
 
 	@Override

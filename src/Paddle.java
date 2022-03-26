@@ -17,10 +17,10 @@ public class Paddle extends GameObject {
 	
 	 public void up() {
 		 
-		 y-=5;
+		 y-=speed;
 	 }
 	 public void down() {
-		 y+=5;
+		 y+=speed;
 	 }
 	
 	
