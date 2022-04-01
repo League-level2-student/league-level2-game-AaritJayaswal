@@ -16,12 +16,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	int currentState = MENU;
 	Font titleFont;
 	Font subtitleFont;
+	Font scoreFont;
 	public Timer frameDraw;
 	public Paddle paddle = new Paddle(20, 220, 20, 80);
 	public static Ball ball = new Ball();
 	public OpponentPaddle op = new OpponentPaddle();
-	
+	int score = 0;
 
+	
 	public GamePanel() {
 		frameDraw = new Timer(1000 / 60, this);
 		frameDraw.start();
@@ -30,12 +32,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void paintComponent(Graphics g) {
+		
 		if (currentState == MENU) {
 			drawMenuState(g);
 		} else if (currentState == GAME) {
 			drawGameState(g);
 			ball.update();
 			op.update();
+			
 		} else if (currentState == END) {
 			drawEndState(g);
 
@@ -74,7 +78,17 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		op.draw(g);
 		if(paddle.collisionBox.intersects(ball.collisionBox)) {
 			ball.xVel = -ball.xVel;
+			score++;
+			System.out.println(score);
 		}
+		if(op.collisionBox.intersects(ball.collisionBox)) {
+			ball.xVel = -ball.xVel;
+		}
+		scoreFont = new Font("Arial", Font.PLAIN, 24);
+		g.setFont(scoreFont);
+		g.setColor(Color.WHITE);
+		g.drawString("Score: " + score, 650, 30);
+		
 	}
 
 	void drawEndState(Graphics g) {

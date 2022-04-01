@@ -6,8 +6,9 @@ public class Ball {
 
 	double xVel, yVel, x, y;
 	public static Rectangle collisionBox = new Rectangle();
+	GamePanel gp = new GamePanel();
 	public Ball() {
-
+		
 		x = 350;
 		y = 250;
 		xVel = -2;
@@ -27,19 +28,23 @@ public class Ball {
 		} else {
 			x += xVel;
 		}
-		if (x < 10) {
-			x = 10;
+		if (x < 0) {
+		
+			x = 0;
+			
 		} else {
 			x += xVel;
 
 		}
 		if (y > 590) {
 			y = 590;
+			yVel = -yVel;
 		} else {
 			y += yVel;
 		}
 		if (y < 10) {
 			y = 10;
+			yVel = -yVel;
 		} else {
 			y += yVel;
 		}

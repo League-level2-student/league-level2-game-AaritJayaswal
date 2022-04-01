@@ -13,7 +13,7 @@ public class Paddle extends GameObject {
 	void draw(Graphics g) {
 		g.setColor(Color.WHITE);
 		g.fillRect(x, y, width, height);
-		collisionBox.setBounds((int)x,(int) y, width, height);
+		collisionBox.setBounds((int)x,(int) y, width - 10, height);
 	}
 
 	public void up() {
