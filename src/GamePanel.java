@@ -16,14 +16,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	int currentState = MENU;
 	Font titleFont;
 	Font subtitleFont;
+	Font howToFont;
 	Font scoreFont;
 	public Timer frameDraw;
 	public Paddle paddle = new Paddle(20, 220, 20, 80);
 	public static Ball ball = new Ball();
 	public OpponentPaddle op = new OpponentPaddle();
+	public boolean GameActive = true;
 	int score = 0;
 
-	
 	public GamePanel() {
 		frameDraw = new Timer(1000 / 60, this);
 		frameDraw.start();
@@ -32,14 +33,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void paintComponent(Graphics g) {
-		
+
 		if (currentState == MENU) {
 			drawMenuState(g);
 		} else if (currentState == GAME) {
 			drawGameState(g);
 			ball.update();
 			op.update();
-			
+
 		} else if (currentState == END) {
 			drawEndState(g);
 
@@ -56,6 +57,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	void updateEndState() {
 
+		
+		
 	}
 
 	void drawMenuState(Graphics g) {
@@ -66,45 +69,74 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(Color.WHITE);
 		g.drawString("PONG", 320, 200);
 		g.drawString("Press ENTER to start", 155, 250);
-		
+		howToFont = new Font("Arial", Font.PLAIN,18);
+		g.setFont(howToFont);
+		g.drawString("How to play: Use the arrow keys to move your paddle up and down.",100,400);
+		g.drawString("Earn points by using the paddle to deflect the ball to the opponent's side.",100,430);
+		g.drawString("Gain 20 points without letting the ball pass your paddle to win!",100,460);
 	}
 
 	void drawGameState(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, Pong.WIDTH, Pong.HEIGHT);
-	
+
 		paddle.draw(g);
 		ball.draw(g);
 		op.draw(g);
-		if(paddle.collisionBox.intersects(ball.collisionBox)) {
-			ball.xVel = -ball.xVel;
-			score++;
-			System.out.println(score);
-		}
-		if(op.collisionBox.intersects(ball.collisionBox)) {
-			ball.xVel = -ball.xVel;
-		}
 		scoreFont = new Font("Arial", Font.PLAIN, 24);
 		g.setFont(scoreFont);
 		g.setColor(Color.WHITE);
 		g.drawString("Score: " + score, 650, 30);
+		checkCollision();
+	}
+
+	void checkCollision() {
+		if (paddle.collisionBox.intersects(ball.collisionBox)) {
+			ball.xVel = -ball.xVel;
+			score++;
 		
+		}
+		if (op.collisionBox.intersects(ball.collisionBox)) {
+			ball.xVel = -ball.xVel;
+		}
+	
+
 	}
 
 	void drawEndState(Graphics g) {
-		g.setColor(Color.BLUE);
+		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, Pong.WIDTH, Pong.HEIGHT);
+		g.setFont(titleFont);
+		g.setColor(Color.WHITE);
+		if(score >= 20) {
+			g.drawString(("YOU WIN!"), 250, 300);
+		}
+		else {
+			g.drawString("GAME OVER", 250, 300);
+		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
+		if (ball.GameActive == false) {
+			currentState = END;
+
+		}
+		if(score >= 20) {
+			currentState = END;
+		}
+		
 		if (currentState == MENU) {
 			updateMenuState();
 		} else if (currentState == GAME) {
 			updateGameState();
+			ball.GameActive=true;
+
 		} else if (currentState == END) {
 			updateEndState();
+			
+			
 		}
 
 		repaint();
@@ -118,7 +150,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 			}
 
-			else {
+			else if (currentState == MENU){
 				currentState++;
 
 			}
