@@ -73,7 +73,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setFont(howToFont);
 		g.drawString("How to play: Use the arrow keys to move your paddle up and down.",100,400);
 		g.drawString("Earn points by using the paddle to deflect the ball to the opponent's side.",100,430);
-		g.drawString("Gain 20 points without letting the ball pass your paddle to win!",100,460);
+		g.drawString("Gain 10 points without letting the ball pass your paddle to win!",100,460);
 	}
 
 	void drawGameState(Graphics g) {
@@ -108,7 +108,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.fillRect(0, 0, Pong.WIDTH, Pong.HEIGHT);
 		g.setFont(titleFont);
 		g.setColor(Color.WHITE);
-		if(score >= 20) {
+		if(score >= 10) {
 			g.drawString(("YOU WIN!"), 250, 300);
 		}
 		else {
@@ -123,7 +123,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			currentState = END;
 
 		}
-		if(score >= 20) {
+		if(score >= 10) {
 			currentState = END;
 		}
 		
